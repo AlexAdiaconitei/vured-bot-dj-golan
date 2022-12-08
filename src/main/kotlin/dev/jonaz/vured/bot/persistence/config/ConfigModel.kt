@@ -6,5 +6,6 @@ data class ConfigModel(
     val env: Environment,
     val discord: ConfigDiscordModel,
     val bot: ConfigBotModel,
+    val spotify: ConfigSpotifyModel?,
     val port: Int
 )
