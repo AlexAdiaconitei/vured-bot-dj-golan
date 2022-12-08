@@ -40,12 +40,14 @@ class MusicService {
         audioPlayer = playerManager.createPlayer()
         sendHandler = AudioPlayerSendHandler(audioPlayer)
 
-        playerManager.registerSourceManager(SpotifySourceManager(null,
-            config.spotify.clientId,
-            config.spotify.clientSecret,
-            config.spotify.countryCode,
-            playerManager)
-        )
+        config.spotify?.let {
+            playerManager.registerSourceManager(SpotifySourceManager(null,
+                it.clientId,
+                it.clientSecret,
+                it.countryCode,
+                playerManager)
+            )
+        }
 
         AudioSourceManagers.registerRemoteSources(playerManager)
         audioPlayer.addListener(TrackScheduler)
