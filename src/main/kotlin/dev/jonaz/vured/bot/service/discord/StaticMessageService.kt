@@ -1,5 +1,6 @@
 package dev.jonaz.vured.bot.service.discord
 
+import com.github.topisenpai.lavasrc.spotify.SpotifyAudioTrack
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack
 import dev.jonaz.vured.bot.application.Translation
 import dev.jonaz.vured.bot.control.ControlMessageCase
@@ -80,9 +81,15 @@ class StaticMessageService {
                 this.addField("Options", options.joinToString(" "), true)
             }
 
-
             audioTrack?.info?.let {
                 this.setThumbnail("https://www.google.com/s2/favicons?sz=24&domain_url=${it.uri}")
+
+                // Checks whether the track is a Spotify Track and then uses its artworkUrl
+                val spotifyAudioTrack = audioTrack as SpotifyAudioTrack
+                if (spotifyAudioTrack.artworkURL.isNotEmpty()) {
+                    this.addField(Translation.ARTIST, audioTrack.info.author, true)
+                    this.setImage(spotifyAudioTrack.artworkURL)
+                }
 
                 if (audioTrack.info.uri.startsWith("https://www.youtube.com/")) {
                     this.addField(Translation.CHANNEL, audioTrack.info.author, true)

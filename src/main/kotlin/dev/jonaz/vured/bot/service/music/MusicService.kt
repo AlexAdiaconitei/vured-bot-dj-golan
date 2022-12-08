@@ -1,5 +1,6 @@
 package dev.jonaz.vured.bot.service.music
 
+import com.github.topisenpai.lavasrc.spotify.SpotifySourceManager
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer
 import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager
 import com.sedmelluq.discord.lavaplayer.source.AudioSourceManagers
@@ -7,6 +8,7 @@ import com.sedmelluq.discord.lavaplayer.track.AudioTrack
 import dev.jonaz.vured.bot.music.AudioLoadResultManager
 import dev.jonaz.vured.bot.music.AudioPlayerSendHandler
 import dev.jonaz.vured.bot.music.TrackScheduler
+import dev.jonaz.vured.bot.service.application.ConfigService
 import dev.jonaz.vured.bot.service.discord.GuildService
 import dev.jonaz.vured.bot.service.discord.StaticMessageService
 import dev.jonaz.vured.bot.service.web.PlayerService
@@ -22,6 +24,7 @@ class MusicService {
     private val staticMessageService by genericInject<StaticMessageService>()
     private val guildService by genericInject<GuildService>()
     private val playerService by genericInject<PlayerService>()
+    private val config by ConfigService
 
     private lateinit var playerManager: DefaultAudioPlayerManager
     private lateinit var audioPlayer: AudioPlayer
@@ -36,6 +39,13 @@ class MusicService {
         playerManager = DefaultAudioPlayerManager()
         audioPlayer = playerManager.createPlayer()
         sendHandler = AudioPlayerSendHandler(audioPlayer)
+
+        playerManager.registerSourceManager(SpotifySourceManager(null,
+            config.spotify.clientId,
+            config.spotify.clientSecret,
+            config.spotify.countryCode,
+            playerManager)
+        )
 
         AudioSourceManagers.registerRemoteSources(playerManager)
         audioPlayer.addListener(TrackScheduler)
