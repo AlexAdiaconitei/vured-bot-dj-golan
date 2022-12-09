@@ -37,6 +37,11 @@ object Translation {
     const val COMMAND_YOUTUBE_OPTION_DESC = "Video name"
     const val COMMAND_YOUTUBE_RESPONSE = "Successfully searched on youtube"
 
+    const val COMMAND_SPOTIFY_DESC = "Search for a song name on Spotify"
+    const val COMMAND_SPOTIFY_OPTION_NAME = "query"
+    const val COMMAND_SPOTIFY_OPTION_DESC = "Song name"
+    const val COMMAND_SPOTIFY_RESPONSE = "Successfully searched on Spotify"
+
     const val COMMAND_LOGIN_DESC = "Creates a token for the Web UI"
     const val COMMAND_SHUTDOWN_DESC = "Shuts down the bot instance"
 
