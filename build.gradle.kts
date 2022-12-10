@@ -57,6 +57,9 @@ dependencies {
     implementation("io.ktor", "ktor-auth-jwt", Versions.KTOR)
     implementation("io.ktor", "ktor-serialization", Versions.KTOR)
     implementation("io.ktor", "ktor-websockets", Versions.KTOR)
+
+    /** Jackson **/
+    implementation("com.fasterxml.jackson.module", "jackson-module-kotlin", Versions.JACKSON)
 }
 
 tasks {

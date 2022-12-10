@@ -26,7 +26,8 @@ class DiscordClientService {
                 GuildVoiceUpdateListener(),
                 MessageReactionListener(),
                 ButtonClickListener(),
-                SlashCommandListener()
+                SlashCommandListener(),
+                AutocompleteListener()
             )
             .build()
             .awaitReady()

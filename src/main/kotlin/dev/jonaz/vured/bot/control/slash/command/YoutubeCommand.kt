@@ -21,12 +21,14 @@ class YoutubeCommand : CommandHandler {
             OptionType.STRING,
             Translation.COMMAND_YOUTUBE_OPTION_NAME,
             Translation.COMMAND_YOUTUBE_OPTION_DESC,
+            true,
             true
         )
     }
 
     override fun execute(event: SlashCommandInteractionEvent) {
         val query = event.getOption("query")?.asString
+            ?.replace(Translation.AUTOCOMPLETE_YOUTUBE_ICON, "")
 
         query?.run {
             musicService.loadItem(event.member, "ytsearch:$this")

@@ -33,6 +33,7 @@ Vured will be expanded in the future and new features will be added
 * [x] Slash commands
 * [x] Playlist import
 * [x] YouTube search
+* [x] Spotify search
 * [x] Web UI
 
 <br>
@@ -68,6 +69,31 @@ Vured will be expanded in the future and new features will be added
 
 <hr>
 
+# Configuration
+In order to get the Bot working on your Discord Server you need to manually invite it using the URL generator that you can find on the Discord Developer Portal.
+
+Minimum permissions required code: 2150640640
+
+You can deploy the BOT on your custom VPS using Docker or you can choose a serverless platform. More info on the [self-hosted](#Its-self-hosted) section.
+
+### Environment variables
+These are the Environment variables needed to get your Bot working.
+- `BOT__TOKEN`: Your Discord Bot token. It can be acquired in the 'Bot' section after creating a 'New Application'. (Create your Discord App here  [here](https://discordapp.com/developers/applications))
+- `BOT__MAX_PLAYLIST_TRACKS`: Maximum amount of tracks accepted in the queue. (Default: 100)
+
+The following ID's can be obtained by enabling the "Developer Mode" on Discord. More info [here](https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-)
+- `DISCORD__ACCESS_ROLE`: The ID of the Role that will have permission to execute commands and queries on the bot.
+- `DISCORD__GUILD`: The ID of the Discord Server where the bot will be installed.
+- `DISCORD__LOG_CHANNEL`: The ID of the text channel assigned for the bot's logs. (It is recommended to have a separate text channel for this where only moderators can view logs. For example: "vured-bot-logs")
+- `DISCORD__MUSIC_CHANNEL`: The ID of the text channel where the BOT will stick its static message with the control buttons. This channel will also be listening for your URL inputs of tracks. <br>
+  ⚠️IMPORTANT⚠️The bot will delete all messages on this channel if it contains any. It is recommended that you create a new channel for this. For example: "vured-bot"
+
+
+Spotify Environment variables are optional. Only required if you wish to use Spotify features. To get a Spotify clientId & clientSecret you must go [here](https://developer.spotify.com/dashboard/login) and create a new application:
+- `SPOTIFY__CLIENT_ID`: Your Spotify clientId.
+- `SPOTIFY__CLIENT_SECRET`: Your Spotify clientSecret.
+- `SPOTIFY__COUNTRY_CODE`: The country code you want to use for filtering the artists top tracks.
+
 # It's self-hosted
 Thanks to modern serverless platforms, however, it is easy and cheap or free of charge.<br>
 Here are some services to deploy it.
@@ -78,15 +104,38 @@ Here are some services to deploy it.
 - [AppEngine](https://cloud.google.com/appengine)
 
 ### 🚢 Instant deploy with Docker
+Get your bot working with Docker by copy/paste this command. Don't forget to update your env variables.
+```bash
+docker run -d \
+    --name vured-bot \
+    -e BOT__TOKEN="" \
+    -e DISCORD__GUILD=0 \
+    -e DISCORD__ACCESS_ROLE=0 \
+    -e DISCORD__GUILD=0 \
+    -e DISCORD__LOG_CHANNEL=0 \
+    -e DISCORD__MUSIC_CHANNEL=0 \
+    jonaznas/vured-bot:latest
+```
+### Docker Compose example
 
-    docker run -d \
-        --name vured-bot \
-        -e BOT__TOKEN="" \
-        -e DISCORD__GUILD=0 \
-        -e DISCORD__MUSIC_CHANNEL=0 \
-        -e DISCORD__ACCESS_ROLE=0 \
-        jonaznas/vured-bot:latest
-
+If you want to get this Fork image you can deploy it with this compose file (Choose your `tag` from the [releases](https://github.com/AlexAdiaconitei/vured-bot-dj-golan/releases) page).
+```yaml
+version: '3.3'
+services:
+  vured-bot:
+    image: 'alexadiaconitei/vured-bot-dj-golan:<tag>'
+    container_name: dj-golan
+    environment:
+      BOT__TOKEN: "Your Discord Bot Token"
+      DISCORD__ACCESS_ROLE: Your Access Role ID
+      DISCORD__GUILD: Your Discord Server ID
+      DISCORD__LOG_CHANNEL: Your Log Channel ID
+      DISCORD__MUSIC_CHANNEL: Your Music Channel ID
+      BOT__MAX_PLAYLIST_TRACKS: 100
+      SPOTIFY__CLIENT_ID: Your Spotify Client ID (If required)
+      SPOTIFY__CLIENT_SECRET: Your Spotify Client Secret (If required)
+      SPOTIFY__COUNTRY_CODE: US (Change to your preference)
+```
 # Contributors
 
 <a href = "https://github.com/vured/vured-bot/graphs/contributors">
