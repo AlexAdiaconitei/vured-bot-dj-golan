@@ -19,5 +19,10 @@ class AutocompleteListener: ListenerAdapter() {
                 autocompleteService.autocompleteYoutube(event.focusedOption.value)
             ).queue()
         }
+        if (event.name == "play" && event.focusedOption.name == "query") {
+            event.replyChoiceStrings(
+                autocompleteService.autocompleteSpotifyAndYoutube(event.focusedOption.value)
+            ).queue()
+        }
     }
 }
