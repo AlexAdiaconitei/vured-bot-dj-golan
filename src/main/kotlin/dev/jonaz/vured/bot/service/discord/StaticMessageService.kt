@@ -85,8 +85,8 @@ class StaticMessageService {
                 this.setThumbnail("https://www.google.com/s2/favicons?sz=24&domain_url=${it.uri}")
 
                 // Checks whether the track is a Spotify Track and then uses its artworkUrl
-                val spotifyAudioTrack = audioTrack as SpotifyAudioTrack
-                if (spotifyAudioTrack.artworkURL.isNotEmpty()) {
+                val spotifyAudioTrack = audioTrack as? SpotifyAudioTrack
+                spotifyAudioTrack?.artworkURL?.let {
                     this.addField(Translation.ARTIST, audioTrack.info.author, true)
                     this.setImage(spotifyAudioTrack.artworkURL)
                 }

@@ -9,10 +9,14 @@ class AutocompleteListener: ListenerAdapter() {
     private val autocompleteService by genericInject<AutocompleteService>()
 
     override fun onCommandAutoCompleteInteraction(event: CommandAutoCompleteInteractionEvent) {
-        print("event:$event.name")
         if (event.name == "spotify" && event.focusedOption.name == "query") {
             event.replyChoiceStrings(
                 autocompleteService.autocompleteSpotify(event.focusedOption.value)
+            ).queue()
+        }
+        if (event.name == "youtube" && event.focusedOption.name == "query") {
+            event.replyChoiceStrings(
+                autocompleteService.autocompleteYoutube(event.focusedOption.value)
             ).queue()
         }
     }

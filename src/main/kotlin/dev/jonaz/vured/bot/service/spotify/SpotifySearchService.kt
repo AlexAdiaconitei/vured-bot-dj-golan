@@ -3,7 +3,8 @@ package dev.jonaz.vured.bot.service.spotify
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
-import dev.jonaz.vured.bot.persistence.spotify.Track
+import dev.jonaz.vured.bot.persistence.autocomplete.Album
+import dev.jonaz.vured.bot.persistence.autocomplete.Track
 import dev.jonaz.vured.bot.service.application.ConfigService
 import org.apache.http.client.entity.UrlEncodedFormEntity
 import org.apache.http.client.methods.CloseableHttpResponse
@@ -12,14 +13,13 @@ import org.apache.http.client.methods.HttpPost
 import org.apache.http.impl.client.CloseableHttpClient
 import org.apache.http.impl.client.HttpClients
 import org.apache.http.message.BasicNameValuePair
-import java.io.IOException
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
 import java.time.Instant
 import java.util.*
 
 
-class SpotifyQueryService {
+class SpotifySearchService {
     private val config by ConfigService
 
     companion object {
@@ -43,7 +43,19 @@ class SpotifyQueryService {
         return trackList
     }
 
-    @Throws(IOException::class)
+    fun getAlbumSearch(query: String): List<Album> {
+        val json = this.getJson(API_BASE + "search?q="
+                + URLEncoder.encode(query, StandardCharsets.UTF_8)
+                + "&type=album&limit=10")
+        var albumList: List<Album> = emptyList()
+        json?.get("albums")?.get("items")?.let {
+            val res = it
+            albumList = mapper.readValue(res.toString())
+        }
+        albumList = albumList.distinctBy { it.name }
+        return albumList
+    }
+
     private fun getJson(uri: String?): JsonNode? {
         val httpClient: CloseableHttpClient = HttpClients.createDefault()
         val request = HttpGet(uri)
@@ -54,7 +66,6 @@ class SpotifyQueryService {
         return json
     }
 
-    @Throws(IOException::class)
     private fun getToken(): String? {
         if (this.token == null || this.tokenExpire == null || this.tokenExpire!!.isBefore(Instant.now())) {
             this.requestToken()
@@ -62,7 +73,6 @@ class SpotifyQueryService {
         return this.token
     }
 
-    @Throws(IOException::class)
     private fun requestToken() {
         val httpClient: CloseableHttpClient = HttpClients.createDefault()
         val request = HttpPost("https://accounts.spotify.com/api/token")

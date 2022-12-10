@@ -1,4 +1,4 @@
-package dev.jonaz.vured.bot.persistence.spotify
+package dev.jonaz.vured.bot.persistence.autocomplete
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
@@ -18,4 +18,13 @@ data class Track (
 data class Artist (
     @JsonProperty("name")
     val name: String?
+)
+
+@Serializable
+@JsonIgnoreProperties(ignoreUnknown = true)
+data class Album (
+    @JsonProperty("artists")
+    val artists: List<Artist>?,
+    @JsonProperty("name")
+    val name: String?,
 )
