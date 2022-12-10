@@ -79,6 +79,8 @@ object Translation {
     const val LOG_TRACK_STUCK = "The song has frozen."
 
     /** Autocomplete Queries **/
-    const val AUTOCOMPLETE_SPOTIFY_TRACK = "\uD83C\uDFB5Spotify\uD83C\uDFB5 %s - %s"
-    const val AUTOCOMPLETE_SPOTIFY_ALBUM = "\uD83D\uDCBFSpotify\uD83D\uDCBF %s - %s"
+    const val AUTOCOMPLETE_SPOTIFY_TRACK_ICON = "\uD83C\uDFB5Spotify\uD83C\uDFB5 "
+    const val AUTOCOMPLETE_SPOTIFY_TRACK = "$AUTOCOMPLETE_SPOTIFY_TRACK_ICON%s - %s"
+    const val AUTOCOMPLETE_SPOTIFY_ALBUM_ICON = "\uD83D\uDCBFSpotify\uD83D\uDCBF "
+    const val AUTOCOMPLETE_SPOTIFY_ALBUM = "%s - %s"
 }

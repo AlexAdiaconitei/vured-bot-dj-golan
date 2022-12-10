@@ -20,7 +20,7 @@ class AutocompleteService {
                     Translation.AUTOCOMPLETE_SPOTIFY_TRACK,
                     it.name,
                     it.artists?.get(0)?.name
-                )
+                ).take(100)
             )
         }
         return trackListFormatted

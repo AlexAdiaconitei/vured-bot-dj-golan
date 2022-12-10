@@ -27,7 +27,9 @@ class SpotifyCommand : CommandHandler {
     }
 
     override fun execute(event: SlashCommandInteractionEvent) {
-        val query = event.getOption("query")?.asString
+        var query = event.getOption("query")?.asString
+            ?.replace(Translation.AUTOCOMPLETE_SPOTIFY_TRACK_ICON, "")
+            ?.replace(Translation.AUTOCOMPLETE_SPOTIFY_ALBUM_ICON, "")
 
         query?.run {
             musicService.loadItem(event.member, "spsearch:$this")
