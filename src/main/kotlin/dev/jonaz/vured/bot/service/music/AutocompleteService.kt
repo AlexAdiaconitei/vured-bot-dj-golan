@@ -21,7 +21,7 @@ class AutocompleteService {
                                  spotifyAlbumList: List<Album>,
                                  youtubeList: List<String>,
     ): List<String> {
-        return formatSpotifyTrackList(spotifyTrackList) + formatSpotifyAlbumList(spotifyAlbumList) + youtubeList
+        return formatSpotifyTrackList(spotifyTrackList) + formatSpotifyAlbumList(spotifyAlbumList) + formatYoutubeList(youtubeList)
     }
 
     private fun formatSpotifyTrackList(trackList: List<Track>): List<String> {
@@ -70,12 +70,10 @@ class AutocompleteService {
     }
 
     fun autocompleteSpotifyAndYoutube(query: String): List<String> {
-        return autocompleteTest("TestSpotifyAndYoutube")
-    }
-
-    private fun autocompleteTest(query: String): List<String> {
-        print("autocompleteSpotify with query:$query")
-        return arrayListOf("test1", "test2")
+        val trackList: List<Track> = spotifySearchService.getTrackSearch(query)
+        val albumList: List<Album> = spotifySearchService.getAlbumSearch(query)
+        val ytList: List<String> = youtubeSearchService.getSearch(query)
+        return mergeResultsList(trackList.take(4), albumList.take(2), ytList.take(4))
     }
 
 }

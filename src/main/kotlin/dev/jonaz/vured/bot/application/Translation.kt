@@ -32,6 +32,11 @@ object Translation {
     const val COMMAND_VOLUME_OPTION_DESC = "New volume in %"
     const val COMMAND_VOLUME_RESPONSE = "Successfully changed the volume"
 
+    const val COMMAND_PLAY_DESC = "Search for song/album/video name"
+    const val COMMAND_PLAY_OPTION_NAME = "query"
+    const val COMMAND_PLAY_OPTION_DESC = "song/album/video name"
+    const val COMMAND_PLAY_RESPONSE = "Successfully searched"
+
     const val COMMAND_YOUTUBE_DESC = "Search for a video name on youtube"
     const val COMMAND_YOUTUBE_OPTION_NAME = "query"
     const val COMMAND_YOUTUBE_OPTION_DESC = "Video name"
