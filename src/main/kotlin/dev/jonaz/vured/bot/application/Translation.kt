@@ -77,4 +77,8 @@ object Translation {
 
     const val LOG_TRACK_EXCEPTION = "An error occurred while playing the current song."
     const val LOG_TRACK_STUCK = "The song has frozen."
+
+    /** Autocomplete Queries **/
+    const val AUTOCOMPLETE_SPOTIFY_TRACK = "\uD83C\uDFB5Spotify\uD83C\uDFB5 %s - %s"
+    const val AUTOCOMPLETE_SPOTIFY_ALBUM = "\uD83D\uDCBFSpotify\uD83D\uDCBF %s - %s"
 }

@@ -21,6 +21,7 @@ class SpotifyCommand : CommandHandler {
             OptionType.STRING,
             Translation.COMMAND_SPOTIFY_OPTION_NAME,
             Translation.COMMAND_SPOTIFY_OPTION_DESC,
+            true,
             true
         )
     }

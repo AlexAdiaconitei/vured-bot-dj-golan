@@ -16,4 +16,5 @@ object Versions {
     const val HOPLITE = "1.4.0"
     const val SENTRY = "3.2.0"
     const val KTOR = "1.6.8"
+    const val JACKSON = "2.9.8"
 }
